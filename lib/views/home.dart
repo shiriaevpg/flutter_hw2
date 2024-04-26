@@ -35,68 +35,67 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext buildContext) {
     return Scaffold(
-      body: _loading
-          ? Container(
-              child: const CircularProgressIndicator(),
-            ) : CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title:  Row(
-                  children: <Widget>[
-                    Text("Flutter"),
-                    Text(
-                      "News",
-                      style: TextStyle(color: Colors.blue),
-                    )
-                  ],
-                ),
-            ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    showSearch(
-                      context: context,
-                      delegate: SearchBarDelegate(articles),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.favorite),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LikedView(
-                                articles: articles
-                                    .where((elem) => elem.isLiked)
-                                    .toList())));
-                  },
-                ),
-              ],
-          ),
-          SliverList(delegate:
-          SliverChildBuilderDelegate((context, index) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ListView.builder(
-                  itemCount: articles.length,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return BlogTile(
-                      model: articles[index],
-                      callback: setState,
-                    );
-                  },
-                ),
+        body: _loading
+            ? Container(
+                child: const CircularProgressIndicator(),
               )
-          ))
-
-        ],
-      )
-    );
+            : CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    floating: true,
+                    flexibleSpace: const FlexibleSpaceBar(
+                      title: Row(
+                        children: <Widget>[
+                          Text("Flutter"),
+                          Text(
+                            "News",
+                            style: TextStyle(color: Colors.blue),
+                          )
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          showSearch(
+                            context: context,
+                            delegate: SearchBarDelegate(articles),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.favorite),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LikedView(
+                                      articles: articles
+                                          .where((elem) => elem.isLiked)
+                                          .toList())));
+                        },
+                      ),
+                    ],
+                  ),
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) =>
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: ListView.builder(
+                              itemCount: articles.length,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return BlogTile(
+                                  model: articles[index],
+                                  callback: setState,
+                                );
+                              },
+                            ),
+                          )))
+                ],
+              ));
   }
 }
 

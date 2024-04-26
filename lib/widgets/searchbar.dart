@@ -33,7 +33,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     final results = news
         .where((article) =>
-        article.title.toLowerCase().contains(query.toLowerCase()))
+            article.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
     return ListView.builder(
       itemCount: results.length,
@@ -53,8 +53,10 @@ class SearchBarDelegate extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     final suggestions = news
         .where((article) =>
-        article.title.toLowerCase().contains(query.toLowerCase()))
-        .toList().map((elem) => elem.title).toList();
+            article.title.toLowerCase().contains(query.toLowerCase()))
+        .toList()
+        .map((elem) => elem.title)
+        .toList();
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {
@@ -66,9 +68,9 @@ class SearchBarDelegate extends SearchDelegate<String> {
               context,
               MaterialPageRoute(
                 builder: (context) => ArticleView(
-                  model: news
-                      .where((element) => element.title == suggestion).first
-                ),
+                    model: news
+                        .where((element) => element.title == suggestion)
+                        .first),
               ),
             );
           },
